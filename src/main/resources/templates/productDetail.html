@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Spring Framework Guru</title>
+
+    <!--/*/ <th:block th:include="fragments/head :: head"></th:block> /*/-->
+</head>
+<body>
+<!--/*/ <th:block th:include="fragments/menu :: menu"></th:block> /*/-->
+
+<div class="container">
+
+    <table class="table table-bordered">
+        <tr>
+            <td>Product Id:</td>
+            <td>
+                <span class="form-control-static" th:text="${product.id}"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>Name:</td>
+            <td>
+                <strong><span class="form-control-static" th:text="${product.description}"></span></strong>
+            </td>
+        </tr>
+        <tr>
+            <td>Price:</td>
+            <td>
+                <span class="form-control-static" th:text="${product.price}"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>Categories:</td>
+            <td>
+                <span th:each="category : ${product.categories}" th:text="${category.name}"></span>
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+</body>
+</html>

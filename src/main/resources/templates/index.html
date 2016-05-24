@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Spring simple shop</title>
+
+    <!--/*/ <th:block th:include="fragments/head :: head"></th:block> /*/-->
+</head>
+<body>
+<!--/*/ <th:block th:include="fragments/menu :: menu"></th:block> /*/-->
+
+<div class="container">
+
+    <div class="jumbotron">
+        <h1>Simple spring shop</h1>
+        <p>This is a simple eshop based on Spring, Thymeleaf and MySQL technology.</p>
+        <p>You can list all products here.</p>
+        <p>
+            <a class="btn btn-lg btn-primary" th:href="@{/products}" role="button">List products</a>
+        </p>
+    </div>
+
+</div>
+
+</body>
+</html>
