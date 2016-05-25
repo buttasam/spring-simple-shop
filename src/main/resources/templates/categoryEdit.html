@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <!--/*/ <th:block th:include="fragments/head :: head"></th:block> /*/-->
+</head>
+<body>
+<!--/*/ <th:block th:include="fragments/menu :: menu"></th:block> /*/-->
+
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Edit category</h3>
+        </div>
+    </div>
+
+    <div th:if="${message}">
+        <h2 th:text="${message}"/>
+    </div>
+
+</div>
+
+</body>
+</html>
