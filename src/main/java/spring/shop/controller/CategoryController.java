@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import spring.shop.entity.Category;
 import spring.shop.facede.ShopFacade;
 
@@ -21,6 +22,7 @@ public class CategoryController {
     @RequestMapping("/categories")
     public String listCategories(Model model) {
         List<Category> categories = shopFacade.getAllCategories();
+        System.out.println(categories.size());
         model.addAttribute("categories", categories);
 
         return "categories";
@@ -45,8 +47,13 @@ public class CategoryController {
 
 
     @RequestMapping(value = "category/delete/{id}")
-    public String deleteCategory(@PathVariable Integer id) {
-        shopFacade.deleteCategoryById(id);
+    public String deleteCategory(@PathVariable Integer id, Model model, RedirectAttributes redirectAttributes) {
+
+        try {
+            shopFacade.deleteCategoryById(id);
+        } catch(Exception ex) {
+            redirectAttributes.addFlashAttribute("message", "Category cannot be deleted");
+        }
 
         return "redirect:/categories";
     }
