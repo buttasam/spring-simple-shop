@@ -11,7 +11,18 @@
 
     <div>
         <h2>Categories</h2>
-        
+        <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            <tr th:each="categories : ${category}">
+                <td th:text="${category.name}"></td>
+                <td><a th:href="${'/category/edit/' + category.id}">Edit</a></td>
+                <td><a th:href="${'/category/delete/' + category.id}">Delete</a></td>
+            </tr>
+        </table>
     </div>
 
 </div>
