@@ -1,6 +1,7 @@
 package spring.shop.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -11,6 +12,7 @@ public class Category {
     @GeneratedValue
     private Integer id;
 
+    @Size(min = 2, max = 30)
     private String name;
 
     @ManyToMany(mappedBy = "categories")
@@ -33,6 +35,10 @@ public class Category {
 
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public List<Product> getProducts() {
