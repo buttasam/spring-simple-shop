@@ -74,4 +74,8 @@ public class ShopFacade {
         product.removeCategory(category);
         productRepository.save(product);
     }
+
+    public void deleteCategoryById(Integer id) {
+        categoryRepository.delete(id);
+    }
 }

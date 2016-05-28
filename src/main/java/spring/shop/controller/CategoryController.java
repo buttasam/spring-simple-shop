@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import spring.shop.entity.Category;
 import spring.shop.facede.ShopFacade;
 
+import java.util.List;
+
 @Controller
 public class CategoryController {
 
@@ -18,6 +20,8 @@ public class CategoryController {
 
     @RequestMapping("/categories")
     public String listCategories(Model model) {
+        List<Category> categories = shopFacade.getAllCategories();
+        model.addAttribute("categories", categories);
 
         return "categories";
     }
@@ -37,6 +41,14 @@ public class CategoryController {
         model.addAttribute("category", shopFacade.getCategoryById(id));
 
         return "categoryEdit";
+    }
+
+
+    @RequestMapping(value = "category/delete/{id}")
+    public String deleteCategory(@PathVariable Integer id) {
+        shopFacade.deleteCategoryById(id);
+
+        return "redirect:/categories";
     }
 
     @RequestMapping("categories/new")
