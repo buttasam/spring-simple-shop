@@ -30,6 +30,10 @@ public class ShopFacade {
         return productRepository.save(product);
     }
 
+    public Category saveCategory(Category category) {
+        return categoryRepository.save(category);
+    }
+
     public Product getProductById(Integer id) {
         return productRepository.findOne(id);
     }
