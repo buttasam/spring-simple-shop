@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import spring.shop.entity.Category;
 import spring.shop.facede.ShopFacade;
 
 @Controller
@@ -22,6 +23,8 @@ public class CategoryController {
 
     @RequestMapping("categories/new")
     public String newCategory(Model model) {
+
+        model.addAttribute("category", new Category());
 
         return "categoryEdit";
     }
