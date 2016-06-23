@@ -14,7 +14,7 @@ public class Product {
     @ManyToMany
     @JoinTable(name = "product_in_category")
     //(name = "product_in_category", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
-    private List<Category> categories;
+    private List<AbstractCategory> categories;
 
     @Size(min = 2, max = 30)
     private String description;
@@ -48,20 +48,20 @@ public class Product {
         this.price = price;
     }
 
-    public List<Category> getCategories() {
+    public List<AbstractCategory> getCategories() {
         return categories;
     }
 
-    public void setCategories(List<Category> categories) {
+    public void setCategories(List<AbstractCategory> categories) {
         this.categories = categories;
     }
 
-    public void addCategory(Category category) {
+    public void addCategory(AbstractCategory category) {
         categories.add(category);
 
     }
 
-    public void removeCategory(Category category) {
+    public void removeCategory(AbstractCategory category) {
         categories.remove(category);
     }
 }

@@ -1,6 +1,7 @@
 package spring.shop.controller;
 
 import org.springframework.web.bind.annotation.RequestParam;
+import spring.shop.entity.AbstractCategory;
 import spring.shop.entity.Category;
 import spring.shop.entity.Product;
 import spring.shop.facede.ShopFacade;
@@ -66,7 +67,7 @@ public class ProductController {
     @RequestMapping(value = "product/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
         Product product = shopFacade.getProductById(id);
-        List<Category> addCategories = shopFacade.getProductHasNotCategories(product);
+        List<AbstractCategory> addCategories = shopFacade.getProductHasNotCategories(product);
 
         model.addAttribute("product", shopFacade.getProductById(id));
         model.addAttribute("addCategories", addCategories);
@@ -79,7 +80,7 @@ public class ProductController {
     public String addProductToCategory(@RequestParam(value = "productId") Integer productId, @RequestParam(value = "categoryId") Integer categoryId) {
 
         Product product = shopFacade.getProductById(productId);
-        Category category = shopFacade.getCategoryById(categoryId);
+        AbstractCategory category = shopFacade.getGeneralCategoryById(categoryId);
 
         shopFacade.addProductToCategory(product, category);
         return "redirect:/product/edit/" + product.getId();
@@ -89,7 +90,7 @@ public class ProductController {
     @RequestMapping(value = "products/remove-product-from-category")
     public String removeProductFromCategory(@RequestParam(value = "productId") Integer productId, @RequestParam(value = "categoryId") Integer categoryId) {
         Product product = shopFacade.getProductById(productId);
-        Category category = shopFacade.getCategoryById(categoryId);
+        AbstractCategory category = shopFacade.getGeneralCategoryById(categoryId);
 
         shopFacade.removeProductFromCategory(product, category);
         return "redirect:/product/edit/" + product.getId();

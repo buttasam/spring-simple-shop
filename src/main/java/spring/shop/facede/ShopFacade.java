@@ -1,13 +1,17 @@
 package spring.shop.facede;
 
 import org.apache.commons.collections4.ListUtils;
+import spring.shop.entity.AbstractCategory;
 import spring.shop.entity.Category;
 import spring.shop.entity.Product;
+import spring.shop.entity.SpecialCategory;
 import spring.shop.repositories.CategoryRepository;
 import spring.shop.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import spring.shop.repositories.SpecialCategoryRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,6 +23,9 @@ public class ShopFacade {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private SpecialCategoryRepository specialCategoryRepository;
 
 
     public Product saveProduct(Product product) {
@@ -34,12 +41,25 @@ public class ShopFacade {
         return categoryRepository.save(category);
     }
 
+    public SpecialCategory saveSpecialCategory(SpecialCategory specialCategory) {
+        return specialCategoryRepository.save(specialCategory);
+    }
+
     public Product getProductById(Integer id) {
         return productRepository.findOne(id);
     }
 
-    public Category getCategoryById(Integer id) {
-        return categoryRepository.findOne(id);
+    public AbstractCategory getGeneralCategoryById(Integer id) {
+        AbstractCategory category = categoryRepository.findOne(id);
+        if(category == null) {
+            category = specialCategoryRepository.findOne(id);
+        }
+        return category;
+    }
+
+
+    public SpecialCategory getSpecialCategoryById(Integer id) {
+        return specialCategoryRepository.findOne(id);
     }
 
 
@@ -51,11 +71,19 @@ public class ShopFacade {
         return categoryRepository.findAll();
     }
 
+    public List<SpecialCategory> getAllSpecialCategories() {
+        return specialCategoryRepository.findAll();
+    }
 
-    public List<Category> getProductHasNotCategories(Product product) {
 
-        List<Category> categories = getAllCategories();
-        List<Category> productCategories = product.getCategories();
+    public List<AbstractCategory> getProductHasNotCategories(Product product) {
+
+        List<AbstractCategory> categories = new ArrayList<>();
+
+        getAllCategories().forEach(c -> categories.add(c));
+        getAllSpecialCategories().forEach(c -> categories.add(c));
+
+        List<AbstractCategory> productCategories = product.getCategories();
 
         return ListUtils.subtract(categories, productCategories);
     }
@@ -65,17 +93,21 @@ public class ShopFacade {
     }
 
 
-    public void addProductToCategory(Product product, Category category) {
+    public void addProductToCategory(Product product, AbstractCategory category) {
         product.addCategory(category);
         productRepository.save(product);
     }
 
-    public void removeProductFromCategory(Product product, Category category) {
+    public void removeProductFromCategory(Product product, AbstractCategory category) {
         product.removeCategory(category);
         productRepository.save(product);
     }
 
     public void deleteCategoryById(Integer id) {
         categoryRepository.delete(id);
+    }
+
+    public void deleteSpecialCategoryById(Integer id) {
+        specialCategoryRepository.delete(id);
     }
 }

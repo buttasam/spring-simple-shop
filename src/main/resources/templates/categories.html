@@ -14,7 +14,7 @@
     </div>
 
     <div>
-        <h2>Categories</h2>
+        <h2>Normal Categories</h2>
         <table class="table table-striped">
             <tr>
                 <th>Name</th>
@@ -25,6 +25,21 @@
                 <td th:text="${category.name}"></td>
                 <td><a th:href="${'/category/edit/' + category.id}">Edit</a></td>
                 <td><a th:href="${'/category/delete/' + category.id}">Delete</a></td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <h2>Special Categories</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            <tr th:each="specialCategory : ${specialCategories}">
+                <td th:text="${specialCategory.name}"></td>
+                <td><a th:href="${'/special-category/edit/' + specialCategory.id}">Edit</a></td>
+                <td><a th:href="${'/special-category/delete/' + specialCategory.id}">Delete</a></td>
             </tr>
         </table>
     </div>

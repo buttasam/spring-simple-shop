@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import spring.shop.entity.Category;
+import spring.shop.entity.SpecialCategory;
 import spring.shop.facede.ShopFacade;
 
 import javax.validation.Valid;
@@ -24,8 +25,12 @@ public class CategoryController {
     @RequestMapping("/categories")
     public String listCategories(Model model) {
         List<Category> categories = shopFacade.getAllCategories();
+        List<SpecialCategory> specialCategories = shopFacade.getAllSpecialCategories();
+
+
         System.out.println(categories.size());
         model.addAttribute("categories", categories);
+        model.addAttribute("specialCategories", specialCategories);
 
         return "categories";
     }
@@ -34,7 +39,6 @@ public class CategoryController {
     @RequestMapping(value = "category", method = RequestMethod.POST)
     public String saveCategory(@Valid Category category, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
-        System.out.println(category.getId());
 
         if(bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("message", "Form is not valid");
@@ -55,7 +59,7 @@ public class CategoryController {
     @RequestMapping(value = "category/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
 
-        model.addAttribute("category", shopFacade.getCategoryById(id));
+        model.addAttribute("category", shopFacade.getGeneralCategoryById(id));
 
         return "categoryEdit";
     }
