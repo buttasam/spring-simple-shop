@@ -1,6 +1,7 @@
 package spring.shop.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -15,7 +16,9 @@ public class Product {
     //(name = "product_in_category", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
     private List<Category> categories;
 
+    @Size(min = 2, max = 30)
     private String description;
+
     private Double price;
 
     public Product() {
