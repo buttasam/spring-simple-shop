@@ -9,6 +9,10 @@ public class RestProduct {
     private Double price;
     private List<String> categories;
 
+    public RestProduct(String name) {
+        this.name = name;
+    }
+
     public RestProduct(String name, Double price, List<String> categories) {
         this.name = name;
         this.price = price;

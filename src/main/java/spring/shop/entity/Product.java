@@ -24,6 +24,10 @@ public class Product {
     public Product() {
     }
 
+    public Product(String description) {
+        this.description = description;
+    }
+
     public String getDescription() {
         return description;
     }
